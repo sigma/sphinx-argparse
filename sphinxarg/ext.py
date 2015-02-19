@@ -75,8 +75,11 @@ def print_opt_list(data, nested_content):
                 option_declaration = [nodes.option_string(text=name)]
                 if opt['default'] is not None \
                         and opt['default'] != '==SUPPRESS==':
+                    default = opt['default']
+                    if hasattr(default, 'name'):
+                        default = default.name
                     option_declaration += nodes.option_argument(
-                        '', text='=' + str(opt['default']))
+                        '', text='=' + str(default))
                 names.append(nodes.option('', *option_declaration))
                 my_def = apply_definition(definitions, my_def, name)
             if len(my_def) == 0:
